@@ -57,7 +57,7 @@ def generate_qr_code(input_text):
     data = {
         "model": MODEL,
         "messages": create_prompt(input_text),
-        "max_tokens": 4096
+        "max_tokens": 8192,  # Matches max_gen_toks from YAML
     }
     
     try:

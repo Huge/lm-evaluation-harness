@@ -2,15 +2,22 @@ tag:
   - generation
   - svg
 task: qrcode
-dataset_path: lm_eval.tasks.qrcode.qrcode_dataset
-dataset_name: default
+# dataset_path: lm_eval.tasks.qrcode.qrcode_dataset #module, not clever, perhaps
+# dataset_path: "tasks/qrcode/qrcode_dataset.json"
+dataset_path: json
+dataset_name: null
+dataset_kwargs:
+  data_files:
+    train: lm_eval/tasks/qrcode/qrcode_dataset.json
+    validation: lm_eval/tasks/qrcode/qrcode_dataset.json
 output_type: generate_until
 training_split: null
 validation_split: validation
 test_split: null
-process_docs: null
-doc_to_text: "Please generate an SVG file containing a QR code that encodes the following text: {{input_text}}"
-doc_to_target: "{{svg_output}}"
+
+process_docs: !function utils.process_docs
+doc_to_text: !function utils.get_text_from_doc
+doc_to_target: !function utils.get_target_from_doc
 generation_kwargs:
   until:
     - "</svg>"

@@ -8,6 +8,7 @@ import numpy as np
 import xml.etree.ElementTree as ET
 from PIL import Image
 import cairosvg
+import datasets
 
 # Install pyzbar if not already installed
 try:
@@ -17,6 +18,48 @@ except ImportError:
     import sys
     subprocess.check_call([sys.executable, "-m", "pip", "install", "pyzbar"])
     from pyzbar.pyzbar import decode
+
+def get_text_from_doc(doc: Dict[str, Any]) -> str:
+    """
+    Generate prompt text from a document.
+    """
+    return f"Please generate an SVG file containing a QR code that encodes the following text: {doc.get('input_text', '')}"
+
+def get_target_from_doc(doc: Dict[str, Any]) -> str:
+    """
+    Get target from a document.
+    """
+    return doc.get('svg_output', '')
+
+def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:
+    """
+    Process the dataset to ensure it has the expected format.
+    """
+    def _process_doc(doc):
+        # If it's already in the right format, return as is
+        if 'input_text' in doc and 'svg_output' in doc:
+            return doc
+            
+        # For datasets loaded with different structures
+        # Extract what we need and reformat
+        processed_doc = {}
+        
+        # Try to find the relevant fields
+        for key, value in doc.items():
+            if key in ['input_text', 'input']:
+                processed_doc['input_text'] = value
+            elif key in ['svg_output', 'output', 'target']:
+                processed_doc['svg_output'] = value
+        
+        # If we couldn't find the expected fields, use defaults
+        if 'input_text' not in processed_doc:
+            processed_doc['input_text'] = doc.get(list(doc.keys())[0], "")
+        if 'svg_output' not in processed_doc:
+            processed_doc['svg_output'] = ""
+            
+        return processed_doc
+
+    return dataset.map(_process_doc)
 
 def is_valid_svg(svg_content: str) -> bool:
     """
@@ -79,7 +122,7 @@ def qrcode_accuracy(samples: List[Dict[str, Any]]) -> Dict[str, float]:
     
     for sample in samples:
         input_text = sample.get("doc", {}).get("input_text", "")
-        generation = sample.get("generation", "")
+        generation = sample.get("prediction", "")
         
         if not input_text or not generation:
             continue
@@ -109,7 +152,7 @@ def svg_validity(samples: List[Dict[str, Any]]) -> Dict[str, float]:
     total = 0
     
     for sample in samples:
-        generation = sample.get("generation", "")
+        generation = sample.get("prediction", "")
         
         if not generation:
             continue
