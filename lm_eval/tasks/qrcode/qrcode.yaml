@@ -1,0 +1,27 @@
+tag:
+  - generation
+  - svg
+task: qrcode
+dataset_path: lm_eval.tasks.qrcode.qrcode_dataset
+dataset_name: default
+output_type: generate_until
+training_split: null
+validation_split: validation
+test_split: null
+process_docs: null
+doc_to_text: "Please generate an SVG file containing a QR code that encodes the following text: {{input_text}}"
+doc_to_target: "{{svg_output}}"
+generation_kwargs:
+  until:
+    - "</svg>"
+  max_gen_toks: 8192
+metric_list:
+  - metric: !function utils.qrcode_accuracy
+    aggregation: mean
+    higher_is_better: true
+  - metric: !function utils.svg_validity
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0
+  description: "Evaluates an LLM's ability to generate valid QR codes in SVG format"

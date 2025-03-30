@@ -1,0 +1,44 @@
+{
+  "validation": [
+    {
+      "input_text": "Hello World",
+      "svg_output": ""
+    },
+    {
+      "input_text": "https://example.com",
+      "svg_output": ""
+    },
+    {
+      "input_text": "12345",
+      "svg_output": ""
+    },
+    {
+      "input_text": "Lorem ipsum dolor sit amet",
+      "svg_output": ""
+    },
+    {
+      "input_text": "https://github.com/EleutherAI/lm-evaluation-harness",
+      "svg_output": ""
+    },
+    {
+      "input_text": "QR Code Test",
+      "svg_output": ""
+    },
+    {
+      "input_text": "OpenAI GPT-4",
+      "svg_output": ""
+    },
+    {
+      "input_text": "Cascade AI Assistant",
+      "svg_output": ""
+    },
+    {
+      "input_text": "user@example.com",
+      "svg_output": ""
+    },
+    {
+      "input_text": "Tel: +1-123-456-7890",
+      "svg_output": ""
+    }
+  ]
+}
