@@ -475,11 +475,10 @@ For a full list of supported arguments, check out the [interface](https://github
 ### Running the Benchmark in GitHub Codespaces
 
 1. Set up environment variables:
-   - `OPENAI_API_KEY`: Your OpenAI API key
-   - `OPENROUTER_API_KEY`: Your OpenRouter API key
-   - `WANDB_API_KEY`: Your Weights & Biases API key
+   - `OPENAI_API_KEY`: Your OpenRouter API key or OpenAI key, but then modify the script below
+   - `WANDB_API_KEY`: Your Weights & Biases API key..well you'd need more like ´pip install lm_eval[wandb] && python -c "import wandb; wandb.login()"´ 
 
-2. Run the benchmark:
+2. Run [the benchmark](./lm_eval/tasks/qrcode):
 
 ```bash
    python scripts/my_dumbo_run.py
