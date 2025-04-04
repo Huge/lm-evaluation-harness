@@ -1,1 +1,7 @@
 -e .
+cairosvg
+openai
+openrouter
+pillow
+pyzbar
+wandb

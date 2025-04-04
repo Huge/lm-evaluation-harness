@@ -470,6 +470,25 @@ load_dataset("EleutherAI/lm-eval-results-private", "hellaswag", "latest")
 
 For a full list of supported arguments, check out the [interface](https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/interface.md) guide in our documentation!
 
+## QR Code Benchmark
+
+### Running the Benchmark in GitHub Codespaces
+
+1. Set up environment variables:
+   - `OPENAI_API_KEY`: Your OpenAI API key
+   - `OPENROUTER_API_KEY`: Your OpenRouter API key
+   - `WANDB_API_KEY`: Your Weights & Biases API key
+
+2. Run the benchmark:
+
+```bash
+   python scripts/my_dumbo_run.py
+   ```
+
+### Dependencies
+
+- Install dependencies with: `pip install -e . && pip install wandb openai openrouter cairosvg pyzbar pillow`
+
 ## Visualizing Results
 
 You can seamlessly visualize and analyze the results of your evaluation harness runs using both Weights & Biases (W&B) and Zeno.
