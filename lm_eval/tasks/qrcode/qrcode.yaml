@@ -24,9 +24,11 @@ generation_kwargs:
   max_gen_toks: 8192
 metric_list:
   - metric: !function utils.qrcode_accuracy
+    name: qrcode_accuracy
     aggregation: mean
     higher_is_better: true
   - metric: !function utils.svg_validity
+    name: svg_validity
     aggregation: mean
     higher_is_better: true
 metadata:
